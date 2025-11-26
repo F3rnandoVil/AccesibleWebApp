@@ -240,15 +240,6 @@
             outline-offset: 2px;
         }
 
-        .ad-toggle-btn::before {
-            content: '🔊';
-            font-size: 1rem;
-        }
-
-        .ad-toggle-btn.ad-off::before {
-            content: '🔇';
-        }
-
         .video-description {
             margin-top: 15px;
             padding: 15px;
@@ -389,7 +380,7 @@
 
                     </iframe>
                     <button class="ad-toggle-btn" onclick="toggleAudioDescription('animated-video')" aria-label="Toggle audio description">
-                        Audio Description
+                        AD
                     </button>
                 </div>
                 <div class="video-description">
@@ -419,7 +410,7 @@
                         allowfullscreen>
                     </iframe>
                     <button class="ad-toggle-btn" onclick="toggleAudioDescription('liveaction-video')" aria-label="Toggle audio description">
-                        Audio Description
+                        AD
                     </button>
                 </div>
                 <div class="video-description">
@@ -482,11 +473,11 @@
             // Update video source
             if (videoStates[videoId]) {
                 iframe.src = videoVersions[videoId].audioDescribed;
-                button.textContent = 'Standard Version';
+                button.textContent = 'SV';
                 button.classList.add('ad-off');
             } else {
                 iframe.src = videoVersions[videoId].normal;
-                button.textContent = 'Audio Description';
+                button.textContent = 'AD';
                 button.classList.remove('ad-off');
             }
         }
