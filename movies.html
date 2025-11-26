@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies - How to Train Your Dragon</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 
     <style>
         * {
@@ -207,6 +207,42 @@
             border: none;
         }
 
+        .ad-toggle-btn {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(26, 26, 26, 0.9);
+            color: #fff;
+            border: 2px solid #6bc47d;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ad-toggle-btn:hover,
+        .ad-toggle-btn:focus {
+            background: rgba(74, 157, 95, 0.95);
+            transform: translateY(-2px);
+            outline: 2px solid #6bc47d;
+            outline-offset: 2px;
+        }
+
+        .ad-toggle-btn::before {
+            content: '🔊';
+            font-size: 1rem;
+        }
+
+        .ad-toggle-btn.ad-off::before {
+            content: '🔇';
+        }
+
         .video-description {
             margin-top: 15px;
             padding: 15px;
@@ -328,22 +364,25 @@
 
             <h2>The Animated Trilogy</h2>
 
-            <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=600&h=400&fit=crop" 
+            <img src="https://preview.redd.it/thoughts-on-the-httyd-trilogy-v0-f8faq63bqpxf1.jpeg?width=1080&crop=smart&auto=webp&s=d7827d478f2877930136b7d3cf74476822ab5862" 
                  alt="Silhouette of a dragon flying against a vibrant sunset sky" 
                  class="movie-image">
 
             <p>The original How to Train Your Dragon animated trilogy, released by DreamWorks Animation in 2010, 2014, and 2019, represents one of the most beloved animated sagas of all time. The first film introduced us to the unlikely friendship between Hiccup, a scrawny Viking teenager, and Toothless, a feared Night Fury dragon. What began as a simple story about overcoming prejudice evolved into an epic tale about growing up, accepting responsibility, and learning when to let go of the things we love most.</p>
 
             <p>The trilogy is renowned for its breathtaking flight sequences, emotional storytelling, and the incredible bond between its main characters. Director Dean DeBlois crafted each film with care, ensuring that Hiccup's journey from awkward teenager to confident leader felt earned and authentic. The final film, The Hidden World, provided a bittersweet but satisfying conclusion that left audiences in tears. If you haven't experienced these films yet, you can <a href="https://www.dreamworks.com/how-to-train-your-dragon" class="content-link" target="_blank" rel="noopener noreferrer">learn more about the animated trilogy</a> and discover why it remains a touchstone of modern animation.</p>
-
             <div class="video-container">
                 <div class="video-wrapper">
                     <iframe 
-                        src="https://www.youtube.com/embed/GLtgYhzE9m0" 
+                        id="animated-video"
+                        src="https://www.youtube.com/embed/SwigFQCnZQI" 
                         title="How to Train Your Dragon - Animated Trilogy Trailer"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                     </iframe>
+                    <button class="ad-toggle-btn" onclick="toggleAudioDescription('animated-video')" aria-label="Toggle audio description">
+                        Audio Description
+                    </button>
                 </div>
                 <div class="video-description">
                     <h3>Visual Description</h3>
@@ -353,7 +392,7 @@
 
             <h2>The Live-Action Adaptation</h2>
 
-            <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&h=400&fit=crop" 
+            <img src="https://flixchatter.net/wp-content/uploads/2025/06/httyd-2025-poster.jpg" 
                  alt="Misty mountain peaks emerging from clouds creating a mystical atmosphere" 
                  class="movie-image">
 
@@ -364,11 +403,15 @@
             <div class="video-container">
                 <div class="video-wrapper">
                     <iframe 
+                        id="liveaction-video"
                         src="https://www.youtube.com/embed/rcrS9er7SI4" 
                         title="How to Train Your Dragon - Live Action Film Trailer"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen>
                     </iframe>
+                    <button class="ad-toggle-btn" onclick="toggleAudioDescription('liveaction-video')" aria-label="Toggle audio description">
+                        Audio Description
+                    </button>
                 </div>
                 <div class="video-description">
                     <h3>Visual Description</h3>
@@ -377,7 +420,6 @@
             </div>
         </section>
     </main>
-
     <footer role="contentinfo">
         <div class="footer-content">
             <div class="footer-section">
@@ -402,5 +444,43 @@
             <p>&copy; 2025 How to Train Your Dragon Fan Site. This is a fan-made website. How to Train Your Dragon is a trademark of DreamWorks Animation.</p>
         </div>
     </footer>
+    <script>
+        // Video URLs - Replace these with actual audio described versions when available
+        const videoVersions = {
+            'animated-video': {
+                normal: 'https://www.youtube.com/embed/SwigFQCnZQI',
+                audioDescribed: 'https://www.youtube.com/embed/SLO17GGYraI' // Replace with AD version URL
+            },
+            'liveaction-video': {
+                normal: 'https://www.youtube.com/embed/rcrS9er7SI4',
+                audioDescribed: 'https://www.youtube.com/embed/rcrS9er7SI4' // Replace with AD version URL
+            }
+        };
+
+        // Track current state for each video
+        const videoStates = {
+            'animated-video': false, // false = normal, true = audio described
+            'liveaction-video': false
+        };
+
+        function toggleAudioDescription(videoId) {
+            const iframe = document.getElementById(videoId);
+            const button = event.target;
+            
+            // Toggle state
+            videoStates[videoId] = !videoStates[videoId];
+            
+            // Update video source
+            if (videoStates[videoId]) {
+                iframe.src = videoVersions[videoId].audioDescribed;
+                button.textContent = 'Standard Version';
+                button.classList.add('ad-off');
+            } else {
+                iframe.src = videoVersions[videoId].normal;
+                button.textContent = 'Audio Description';
+                button.classList.remove('ad-off');
+            }
+        }
+    </script>
 </body>
 </html>
