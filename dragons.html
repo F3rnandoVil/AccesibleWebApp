@@ -429,6 +429,27 @@
             transition: width 1s ease-out;
         }
 
+        /* Visually hidden helper for screen readers */
+        .sr-only {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+
+        /* Make progressbar focus visible for keyboard users */
+        .stat-track:focus {
+            outline: 2px solid #4a9d5f;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 4px rgba(74,157,95,0.15);
+            border-radius: 10px;
+        }
+
         /* Specific Colors based on your image */
         .fill-attack { background: linear-gradient(90deg, #ff6b6b, #ee5253); }
         .fill-speed { background: linear-gradient(90deg, #48dbfb, #0abde3); }
@@ -493,6 +514,9 @@
         <div class="dragons-grid" id="dragons-container" role="region" aria-live="polite">
             <!-- Dragons will be dynamically inserted here -->
         </div>
+
+        <!-- Live announcer to read dragon summary once on first stat focus -->
+        <div id="sr-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
         <div class="no-results" id="no-results" style="display: none;">
             No dragons found matching your criteria. Try adjusting your filters!
@@ -970,6 +994,8 @@
     }
 ];
         let filteredDragons = [...dragons];
+        // Track dragons that have already had their summary announced to avoid repeated announcements
+        const announcedDragons = new Set();
 
         // Helper to convert text stats to percentages
         function getStatPercentage(value) {
@@ -986,15 +1012,28 @@
         }
 
         // Helper to create the HTML for a single stat bar
-        function createStatBar(label, value, colorClass) {
+        // dragonNameId: the ID of the dragon's name element to include in the accessible label
+        function createStatBar(label, value, colorClass, dragonNameId) {
             const percent = getStatPercentage(value);
+            // Unique ids for the label + visually-hidden value
+            const idBase = label.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Math.random().toString(36).slice(2, 7);
+            const labelId = `stat-label-${idBase}`;
+            const valueId = `stat-value-${idBase}`;
             return `
                 <div class="stat-item">
                     <div class="stat-header">
-                        <span class="stat-label">${label}</span>
+                        <span id="${labelId}" class="stat-label">${label}</span>
+                        <span id="${valueId}" class="sr-only">${value}</span>
                     </div>
-                    <div class="stat-track">
-                        <div class="stat-fill ${colorClass}" style="width: ${percent}%" title="${value}"></div>
+                    <div class="stat-track"
+                         role="progressbar"
+                         tabindex="0"
+                         aria-labelledby="${dragonNameId} ${labelId} ${valueId}"
+                         aria-valuemin="0"
+                         aria-valuemax="100"
+                         aria-valuenow="${percent}"
+                         aria-valuetext="${value}">
+                        <div class="stat-fill ${colorClass}" style="width: ${percent}%" aria-hidden="true" title="${value}"></div>
                     </div>
                 </div>
             `;
@@ -1025,32 +1064,55 @@
                 card.className = 'dragon-card';
                 
                 const displayName = dragon.name || dragon.species;
+                const dragonNameId = `dragon-name-${dragon.id}`;
                 const imageUrl = convertImageUrl(dragon.image);
                 
                 card.innerHTML = `
                     <img src="${imageUrl}" alt="${displayName}" class="dragon-image">
                     <div class="dragon-content">
                         <div class="dragon-header">
-                            <h2 class="dragon-name">${displayName}</h2>
+                            <h2 id="${dragonNameId}" class="dragon-name">${displayName}</h2>
                             ${dragon.name !== dragon.species && dragon.name ? `<p class="dragon-species">${dragon.species}</p>` : ''}
                         </div>
                         <span class="dragon-class">${dragon.class} Class</span>
                         <p class="dragon-description">"${dragon.description}"</p>
                         
                         <div class="dragon-stats">
-                            ${createStatBar('Attack', dragon.attack, 'fill-attack')}
-                            ${createStatBar('Speed', dragon.speed, 'fill-speed')}
-                            ${createStatBar('Armor', dragon.armor, 'fill-armor')}
-                            ${createStatBar('Firepower', dragon.firepower, 'fill-firepower')}
-                            ${createStatBar('Shot Limit', dragon.shotLimit, 'fill-shotlimit')}
-                            ${createStatBar('Venom', dragon.venom, 'fill-venom')}
-                            ${createStatBar('Jaw Strength', dragon.jawStrength, 'fill-jawstrength')}
-                            ${createStatBar('Stealth', dragon.stealth, 'fill-stealth')}
+                            ${createStatBar('Attack', dragon.attack, 'fill-attack', dragonNameId)}
+                            ${createStatBar('Speed', dragon.speed, 'fill-speed', dragonNameId)}
+                            ${createStatBar('Armor', dragon.armor, 'fill-armor', dragonNameId)}
+                            ${createStatBar('Firepower', dragon.firepower, 'fill-firepower', dragonNameId)}
+                            ${createStatBar('Shot Limit', dragon.shotLimit, 'fill-shotlimit', dragonNameId)}
+                            ${createStatBar('Venom', dragon.venom, 'fill-venom', dragonNameId)}
+                            ${createStatBar('Jaw Strength', dragon.jawStrength, 'fill-jawstrength', dragonNameId)}
+                            ${createStatBar('Stealth', dragon.stealth, 'fill-stealth', dragonNameId)}
                         </div>
                     </div>
                 `;
                 
                 container.appendChild(card);
+
+                // Add focus listeners to stat bars to announce dragon's full summary once
+                const srAnnouncer = document.getElementById('sr-announcer');
+                const statTracks = card.querySelectorAll('.stat-track');
+                statTracks.forEach(track => {
+                    track.addEventListener('focus', () => {
+                        if (!announcedDragons.has(dragon.id)) {
+                            const summaryParts = [];
+                            summaryParts.push(`${displayName}:`);
+                            summaryParts.push(`Attack ${dragon.attack}`);
+                            summaryParts.push(`Speed ${dragon.speed}`);
+                            summaryParts.push(`Armor ${dragon.armor}`);
+                            summaryParts.push(`Firepower ${dragon.firepower}`);
+                            summaryParts.push(`Shot Limit ${dragon.shotLimit}`);
+                            summaryParts.push(`Venom ${dragon.venom}`);
+                            summaryParts.push(`Jaw Strength ${dragon.jawStrength}`);
+                            summaryParts.push(`Stealth ${dragon.stealth}`);
+                            srAnnouncer.textContent = summaryParts.join(', ');
+                            announcedDragons.add(dragon.id);
+                        }
+                    });
+                });
             });
         }
 const classes = [...new Set(dragons.map(d => d.class))].sort();
