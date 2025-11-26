@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - How to Train Your Dragon</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f5f5f0;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            padding: 1rem 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            box-shadow: 0 2px 8px rgba(74, 157, 95, 0.4);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .cta-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #4a9d5f 0%, #6bc47d 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(74, 157, 95, 0.3);
+        }
+
+        .cta-btn:hover,
+        .cta-btn:focus {
+            background: linear-gradient(135deg, #3d8650 0%, #5aad6c 100%);
+            outline: 2px solid #6bc47d;
+            outline-offset: 2px;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(74, 157, 95, 0.4);
+        }
+
+        nav {
+            background: #2d2d2d;
+            border-bottom: 3px solid #4a9d5f;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 20px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            background: #1a1a1a;
+            outline: 2px solid #4a9d5f;
+            outline-offset: -2px;
+        }
+
+        nav a[aria-current="page"] {
+            background: #1a1a1a;
+            border-bottom: 3px solid #6bc47d;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #4a9d5f;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #2d2d2d;
+            margin-bottom: 15px;
+            margin-top: 30px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .contact-info {
+            background: #e8f5ea;
+            padding: 30px;
+            border-radius: 10px;
+            border-left: 4px solid #4a9d5f;
+        }
+
+        .contact-info h3 {
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .contact-form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+
+        .required-indicator {
+            color: #c44536;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4a9d5f;
+            box-shadow: 0 0 0 3px rgba(74, 157, 95, 0.2);
+        }
+
+        input[type="text"]:required:invalid,
+        input[type="email"]:required:invalid,
+        select:required:invalid,
+        textarea:required:invalid {
+            border-color: #bdc3c7;
+        }
+
+        input[type="text"]:required:valid,
+        input[type="email"]:required:valid,
+        select:required:valid,
+        textarea:required:valid {
+            border-color: #27ae60;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #4a9d5f 0%, #6bc47d 100%);
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(74, 157, 95, 0.3);
+        }
+
+        .submit-btn:hover,
+        .submit-btn:focus {
+            background: linear-gradient(135deg, #3d8650 0%, #5aad6c 100%);
+            outline: 2px solid #6bc47d;
+            outline-offset: 2px;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(74, 157, 95, 0.4);
+        }
+
+        .form-note {
+            font-size: 0.9rem;
+            color: #000000;
+            margin-top: 15px;
+        }
+
+        .community-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 40px 20px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #6bc47d;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #d0d0d0;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-section a:hover,
+        .footer-section a:focus {
+            color: #6bc47d;
+            text-decoration: underline;
+            outline: 2px solid #4a9d5f;
+            outline-offset: 2px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #2d2d2d;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon" aria-hidden="true"><img src="https://m.media-amazon.com/images/I/41vImISHfFL.jpg" alt=""></span>
+                <span>How to Train Your Dragon</span>
+            </div>
+            <div class="cta-buttons">
+                <a href="index.html#explore" class="cta-btn">Explore Berk</a>
+                <a href="contact.html" class="cta-btn">Join Us</a>
+            </div>
+        </div>
+    </header>
+
+    <nav role="navigation" aria-label="Main navigation">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="movies.html">Movies</a></li>
+            <li><a href="dragons.html">Dragons</a></li>
+            <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content" role="main">
+        <section>
+            <h1>Join Our Dragon-Loving Community</h1>
+            
+            <p>Whether you're a longtime fan of the animated trilogy or just discovering the world of How to Train Your Dragon through the live-action film, we'd love to hear from you! Our community is built on a shared passion for this incredible franchise and the timeless themes it explores—friendship, courage, understanding, and the bonds that connect us all.</p>
+
+            <p>Use the form below to get in touch with us. Whether you want to share your favorite dragon moment, ask questions about the franchise, suggest content for the site, or simply connect with fellow fans, we're here to listen. Every member of our community brings something unique, just like every dragon has its own special abilities!</p>
+
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500&h=350&fit=crop" 
+                 alt="Group of people gathered together in a community setting, representing fans coming together" 
+                 class="community-image">
+
+            <h2>Get In Touch</h2>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <p><strong>Email:</strong> info@httydworld.com</p>
+                    <p><strong>Response Time:</strong> We typically respond within 24-48 hours</p>
+                    <p><strong>Community Guidelines:</strong> We're committed to maintaining a positive, inclusive space for all fans. Please be respectful in all communications.</p>
+                    
+                    <h3 style="margin-top: 25px;">Connect With Us</h3>
+                    <p>Follow us on social media to stay updated on the latest news, fan art, discussions, and events related to How to Train Your Dragon!</p>
+                </div>
+
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <div class="form-group">
+                        <label for="name">
+                            Full Name <span class="required-indicator" aria-label="required">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            required 
+                            aria-required="true"
+                            autocomplete="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">
+                            Email Address <span class="required-indicator" aria-label="required">*</span>
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required 
+                            aria-required="true"
+                            autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interest">
+                            What brings you here? <span class="required-indicator" aria-label="required">*</span>
+                        </label>
+                        <select 
+                            id="interest" 
+                            name="interest" 
+                            required 
+                            aria-required="true">
+                            <option value="">Please select an option</option>
+                            <option value="fan">I'm a longtime fan</option>
+                            <option value="new">New to the franchise</option>
+                            <option value="question">I have a question</option>
+                            <option value="feedback">Website feedback</option>
+                            <option value="collaboration">Collaboration opportunity</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">
+                            Your Message <span class="required-indicator" aria-label="required">*</span>
+                        </label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            required 
+                            aria-required="true"
+                            placeholder="Tell us what's on your mind..."></textarea>
+                    </div>
+
+                    <button type="button" class="submit-btn" onclick="handleSubmit()">Send Message</button>
+                    
+                    <p class="form-note">
+                        <span class="required-indicator">*</span> Required fields. 
+                        Your information will be kept private and only used to respond to your inquiry.
+                    </p>
+                </div>
+            </div>
+
+            <h2>Community Guidelines</h2>
+
+            <p>Our community thrives because of the passion and respect our members show for each other and for the How to Train Your Dragon franchise. We welcome fans of all ages, backgrounds, and levels of familiarity with the series. Whether you prefer the animated films or the live-action adaptation (or love them both!), there's room for everyone here.</p>
+
+            <p>We ask that all community members engage respectfully, avoid spoilers without proper warnings, and help create an environment where everyone feels welcome to share their love of dragons. Together, we can build a community that reflects the best values of the franchise: friendship, understanding, and the courage to be yourself.</p>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About This Site</h3>
+                <p>A fan-created tribute to the How to Train Your Dragon franchise, celebrating both the beloved animated trilogy and the exciting live-action adaptation.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="movies.html">Movies</a>
+                <a href="dragons.html">Dragons</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <p>Email: info@httydworld.com</p>
+                <p>Location: Berk (Fictional)</p>
+                <p>Follow us on social media</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 How to Train Your Dragon Fan Site. This is a fan-made website. How to Train Your Dragon is a trademark of DreamWorks Animation.</p>
+        </div>
+    </footer>
+
+    <script>
+        function handleSubmit() {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const interest = document.getElementById('interest').value;
+            const message = document.getElementById('message').value.trim();
+
+            if (!name || !email || !interest || !message) {
+                alert('Please fill in all required fields marked with *');
+                return;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            alert('Thank you for your message! We\'ll get back to you soon.');
+            
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('interest').value = '';
+            document.getElementById('message').value = '';
+        }
+    </script>
+</body>
+</html>

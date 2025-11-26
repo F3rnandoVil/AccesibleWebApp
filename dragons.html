@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Species - How to Train Your Dragon</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f5f5f0;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #fff;
+            padding: 1rem 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+                .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            box-shadow: 0 2px 8px rgba(74, 157, 95, 0.4);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .cta-btn {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #4a9d5f 0%, #6bc47d 100%);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 2px 6px rgba(74, 157, 95, 0.3);
+        }
+
+        .cta-btn:hover,
+        .cta-btn:focus {
+            background: linear-gradient(135deg, #3d8650 0%, #5aad6c 100%);
+            outline: 2px solid #6bc47d;
+            outline-offset: 2px;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(74, 157, 95, 0.4);
+        }
+
+        nav {
+            background: #2d2d2d;
+            border-bottom: 3px solid #4a9d5f;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 20px;
+            transition: background 0.3s;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            background: #1a1a1a;
+            outline: 2px solid #4a9d5f;
+            outline-offset: -2px;
+        }
+
+        nav a[aria-current="page"] {
+            background: #1a1a1a;
+            border-bottom: 3px solid #6bc47d;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #4a9d5f;
+        }
+
+        .intro {
+            margin-bottom: 40px;
+        }
+
+        .intro p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .filter-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .filter-section h2 {
+            font-size: 1.3rem;
+            color: #1a1a1a;
+            margin-bottom: 15px;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-group label {
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #2d2d2d;
+        }
+
+        select, input {
+            padding: 8px 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            min-width: 150px;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #4a9d5f;
+            box-shadow: 0 0 0 3px rgba(74, 157, 95, 0.2);
+        }
+
+        .dragons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .dragon-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .dragon-card:hover,
+        .dragon-card:focus-within {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(74, 157, 95, 0.3);
+        }
+
+        .dragon-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #e8f5ea 0%, #d0ead5 100%);
+        }
+
+        .dragon-content {
+            padding: 20px;
+        }
+
+        .dragon-header {
+            margin-bottom: 15px;
+        }
+
+        .dragon-name {
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 5px;
+        }
+
+        .dragon-species {
+            font-size: 1.1rem;
+            color: #295734;
+            font-weight: bold;
+        }
+
+        .dragon-class {
+            display: inline-block;
+            background: linear-gradient(135deg, #4a9d5f 0%, #6bc47d 100%);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .dragon-description {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .dragon-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            padding: 40px 20px 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #6bc47d;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #d0d0d0;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer-section a:hover,
+        .footer-section a:focus {
+            color: #6bc47d;
+            text-decoration: underline;
+            outline: 2px solid #4a9d5f;
+            outline-offset: 2px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #2d2d2d;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .dragons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-group {
+                width: 100%;
+            }
+
+            select, input {
+                width: 100%;
+            }
+        }
+        .dragon-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two columns */
+            gap: 15px 15px; /* Gap between rows and columns */
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column; /* Stack label on top of bar */
+            gap: 4px;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-label {
+            color: #1a1a1a;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        /* The gray background of the bar */
+        .stat-track {
+            width: 100%;
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* The colored filling */
+        .stat-fill {
+            height: 100%;
+            border-radius: 10px;
+            width: 0%; /* Default, animated by JS */
+            transition: width 1s ease-out;
+        }
+
+        /* Specific Colors based on your image */
+        .fill-attack { background: linear-gradient(90deg, #ff6b6b, #ee5253); }
+        .fill-speed { background: linear-gradient(90deg, #48dbfb, #0abde3); }
+        .fill-armor { background: linear-gradient(90deg, #e056fd, #be2edd); }
+        .fill-firepower { background: linear-gradient(90deg, #e17055, #d35400); }
+        .fill-shotlimit { background: linear-gradient(90deg, #fab1a0, #e17055); }
+        .fill-venom { background: linear-gradient(90deg, #55efc4, #00b894); }
+        .fill-jawstrength { background: linear-gradient(90deg, #00cec9, #00b894); }
+        .fill-stealth { background: linear-gradient(90deg, #74b9ff, #0984e3); }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon" aria-hidden="true"><img src="https://m.media-amazon.com/images/I/41vImISHfFL.jpg" alt=""></span>
+                <span>How to Train Your Dragon</span>
+            </div>
+            <div class="cta-buttons">
+                <a href="index.html#explore" class="cta-btn">Explore Berk</a>
+                <a href="contact.html" class="cta-btn">Join Us</a>
+            </div>
+        </div>
+    </header>
+
+    <nav role="navigation" aria-label="Main navigation">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="movies.html">Movies</a></li>
+            <li><a href="dragons.html" aria-current="page">Dragons</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content" role="main">
+        <h1>Dragon Species Database</h1>
+        
+        <div class="intro">
+            <p>Welcome to the comprehensive dragon species database! Here you'll find detailed information about all the amazing dragons from the How to Train Your Dragon universe. From the legendary Night Fury to the massive Bewilderbeast, each dragon has unique characteristics, abilities, and personalities that make them special.</p>
+
+            <p>Explore the various dragon classes including Strike, Boulder, Tracker, Mystery, Tidal, Sharp, and Stocker classes. Learn about their stats, abilities, and what makes each species unique in the vast dragon ecosystem of Berk and beyond.</p>
+        </div>
+
+        <section class="filter-section">
+            <h2>Filter Dragons</h2>
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label for="class-filter">Dragon Class:</label>
+                    <select id="class-filter" aria-label="Filter by dragon class">
+                        <option value="">All Classes</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="search-filter">Search:</label>
+                    <input type="text" id="search-filter" placeholder="Search by name or species..." aria-label="Search dragons by name or species">
+                </div>
+            </div>
+        </section>
+
+        <div class="dragons-grid" id="dragons-container" role="region" aria-live="polite">
+            <!-- Dragons will be dynamically inserted here -->
+        </div>
+
+        <div class="no-results" id="no-results" style="display: none;">
+            No dragons found matching your criteria. Try adjusting your filters!
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About This Site</h3>
+                <p>A fan-created tribute to the How to Train Your Dragon franchise, celebrating both the beloved animated trilogy and the exciting live-action adaptation.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="movies.html">Movies</a>
+                <a href="dragons.html">Dragons</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Information</h3>
+                <p>Email: info@httydworld.com</p>
+                <p>Location: Berk (Fictional)</p>
+                <p>Follow us on social media</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 How to Train Your Dragon Fan Site. This is a fan-made website. How to Train Your Dragon is a trademark of DreamWorks Animation.</p>
+        </div>
+    </footer>
+
+    <script>
+        const dragons = [
+    {
+        "id": 1,
+        "name": "Toothless",
+        "species": "Night Fury",
+        "class": "Strike",
+        "attack": "High",
+        "speed": "Maximum",
+        "armor": "Medium",
+        "firepower": "Medium",
+        "shotLimit": "High",
+        "venom": "N/A",
+        "jawStrength": "Low",
+        "stealth": "Very High",
+        "description": "Loyal and empathic with boundless, puppy-like energy",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/toothless/dragon-hero.png",
+        "classImage": "https://ibb.co/3CM22XP"
+    },
+    {
+        "id": 2,
+        "name": "Stormfly",
+        "species": "Deadly Nadder",
+        "class": "Tracker",
+        "attack": "Low",
+        "speed": "Low",
+        "armor": "Medium",
+        "firepower": "High",
+        "shotLimit": "High",
+        "venom": "Maximum",
+        "jawStrength": "Low",
+        "stealth": "Medium",
+        "description": "Precise and cunning in battle, yet warm and affectionate with friends old and new",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/stormfly/dragon-hero.png",
+        "classImage": "https://ibb.co/JKNmX66"
+    },
+    {
+        "id": 3,
+        "name": "Barf & Belch",
+        "species": "Hideous Zippleback",
+        "class": "Mystery",
+        "attack": "Low",
+        "speed": "Medium",
+        "armor": "Low",
+        "firepower": "High",
+        "shotLimit": "High",
+        "venom": "N/A",
+        "jawStrength": "Low",
+        "stealth": "Maximum",
+        "description": "Truly a split personality! Barf & Belch are each fiercely independent, yet inextricably linked",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/barf-belch/dragon-hero.png",
+        "classImage": "https://ibb.co/cCfDP5P"
+    },
+    {
+        "id": 4,
+        "name": "Grump",
+        "species": "Hotburple",
+        "class": "Boulder",
+        "attack": "Low",
+        "speed": "Low",
+        "armor": "High",
+        "firepower": "Medium",
+        "shotLimit": "High",
+        "venom": "N/A",
+        "jawStrength": "Low",
+        "stealth": "Low",
+        "description": "A loyal, lava-launching helper -- when he isn't napping",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/grump/dragon-hero.png",
+        "classImage": "https://ibb.co/VphFy0p"
+    },
+    {
+        "id": 5,
+        "name": "Hookfang",
+        "species": "Monstrous Nightmare",
+        "class": "Stoker",
+        "attack": "High",
+        "speed": "High",
+        "armor": "Medium",
+        "firepower": "High",
+        "shotLimit": "Maximum",
+        "venom": "N/A",
+        "jawStrength": "Low",
+        "stealth": "Low",
+        "description": "Incendiary in temperament and short on patience, Hookfang would rather ignite 1st and think 2nd",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/hookfang/dragon-hero.png",
+        "classImage": "https://ibb.co/8bNCsRY"
+    },
+    {
+        "id": 6,
+        "name": "",
+        "species": "Light Fury",
+        "class": "Strike",
+        "attack": "High",
+        "speed": "Maximum",
+        "armor": "Medium",
+        "firepower": "Medium",
+        "shotLimit": "High",
+        "venom": "N/A",
+        "jawStrength": "Low",
+        "stealth": "Very High",
+        "description": "The feline-like Light Fury is gentle and playful by nature, like Toothless, but fiercely protective when danger is present",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/light-fury/dragon-hero.png",
+        "classImage": "https://ibb.co/3CM22XP"
+    },
+    {
+        "id": 7,
+        "name": "Meatlug",
+        "species": "Gronckle",
+        "class": "Boulder",
+        "attack": "Low",
+        "speed": "Low",
+        "armor": "High",
+        "firepower": "Medium",
+        "shotLimit": "High",
+        "venom": "N/A",
+        "jawStrength": "Low",
+        "stealth": "Low",
+        "description": "Exceedingly demonstrative and sweet, yet quite self-conscious despite her thick hide",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/meatlug/dragon-hero.png",
+        "classImage": "https://ibb.co/VphFy0p"
+    },
+    {
+        "id": 8,
+        "name": "Cloud Jumper",
+        "species": "Stormcutter",
+        "class": "Sharp",
+        "attack": "Low",
+        "speed": "Low",
+        "armor": "Very Low",
+        "firepower": "N/A",
+        "shotLimit": "Very High",
+        "venom": "N/A",
+        "jawStrength": "N/A",
+        "stealth": "N/A",
+        "description": "Proud and confident",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/cloudjumper/dragon-hero.png",
+        "classImage": "https://ibb.co/PFjPKk6"
+    },
+    {
+        "id": 9,
+        "name": "Skull Crusher",
+        "species": "Rumblehorn",
+        "class": "Tracker",
+        "attack": "Low",
+        "speed": "Low",
+        "armor": "Low",
+        "firepower": "Low",
+        "shotLimit": "Low",
+        "venom": "N/A",
+        "jawStrength": "Low",
+        "stealth": "N/A",
+        "description": "Doggedly determined when he's caught a scent",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/skullcrusher/dragon-hero.png",
+        "classImage": "https://ibb.co/JKNmX66"
+    },
+    {
+        "id": 10,
+        "name": "",
+        "species": "Armor Wing",
+        "class": "Mystery",
+        "attack": "Low",
+        "speed": "Low",
+        "armor": "Maximum",
+        "firepower": "Low",
+        "shotLimit": "Low",
+        "venom": "N/A",
+        "jawStrength": "Low",
+        "stealth": "Very Low",
+        "description": "Metal-Plated Plunderer",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/armorwing/dragon-hero.png",
+        "classImage": "https://ibb.co/cCfDP5P"
+    },
+    {
+        "id": 11,
+        "name": "",
+        "species": "Eruptodon",
+        "class": "Boulder",
+        "attack": "Low",
+        "speed": "Low",
+        "armor": "Very High",
+        "firepower": "Low",
+        "shotLimit": "Low",
+        "venom": "N/A",
+        "jawStrength": "Low",
+        "stealth": "Very Low",
+        "description": "Volcanic & valiant",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/eruptodon/dragon-hero.png",
+        "classImage": "https://ibb.co/VphFy0p"
+    },
+    {
+        "id": 12,
+        "name": "",
+        "species": "Night Terror",
+        "class": "Stoker",
+        "attack": "Very Low",
+        "speed": "Low",
+        "armor": "Very Low",
+        "firepower": "Low",
+        "shotLimit": "Low",
+        "venom": "N/A",
+        "jawStrength": "Very Low",
+        "stealth": "Low",
+        "description": "Shy at first, but great as allies once trust is built",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/night-terror/dragon-hero.png",
+        "classImage": "https://ibb.co/8bNCsRY"
+    },
+    {
+        "id": 13,
+        "name": "",
+        "species": "Seashocker",
+        "class": "Tidal",
+        "attack": "Low",
+        "speed": "Medium",
+        "armor": "Low",
+        "firepower": "Very Low",
+        "shotLimit": "Low",
+        "venom": "High",
+        "jawStrength": "Very Low",
+        "stealth": "Very Low",
+        "description": "Masters of the sneak attack",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/seashocker/dragon-hero.png",
+        "classImage": "https://ibb.co/9pPgDmm"
+    },
+    {
+        "id": 14,
+        "name": "",
+        "species": "Skrill",
+        "class": "Strike",
+        "attack": "Low",
+        "speed": "High",
+        "armor": "Low",
+        "firepower": "Low",
+        "shotLimit": "Very Low",
+        "venom": "N/A",
+        "jawStrength": "Very Low",
+        "stealth": "Low",
+        "description": "Belligerent and as unpredictable as lightning strikes",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/skrill/dragon-hero.png",
+        "classImage": "https://ibb.co/3CM22XP"
+    },
+    {
+        "id": 15,
+        "name": "",
+        "species": "Snaptrapper",
+        "class": "Mystery",
+        "attack": "Low",
+        "speed": "Very Low",
+        "armor": "Very Low",
+        "firepower": "Very Low",
+        "shotLimit": "Very Low",
+        "venom": "Very High",
+        "jawStrength": "High",
+        "stealth": "Maximum",
+        "description": "Temptation and terror to the fourth power",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/snaptrapper/dragon-hero.png",
+        "classImage": "https://ibb.co/cCfDP5P"
+    },
+    {
+        "id": 16,
+        "name": "",
+        "species": "Terrible Terror",
+        "class": "Stoker",
+        "attack": "Low",
+        "speed": "Low",
+        "armor": "Low",
+        "firepower": "Low",
+        "shotLimit": "Low",
+        "venom": "High",
+        "jawStrength": "Very Low",
+        "stealth": "Low",
+        "description": "Inquisitive and curious animals, their only downfall is their territorial in-fighting",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/terrible-terror/dragon-hero.png",
+        "classImage": "https://ibb.co/8bNCsRY"
+    },
+    {
+        "id": 17,
+        "name": "",
+        "species": "Thunderdrum",
+        "class": "Tidal",
+        "attack": "Low",
+        "speed": "Medium",
+        "armor": "Low",
+        "firepower": "Low",
+        "shotLimit": "Low",
+        "venom": "N/A",
+        "jawStrength": "Low",
+        "stealth": "Low",
+        "description": "Strident and assertive, the loud Thunderdrum always makes its feelings known",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/thunderdrum/dragon-hero.png",
+        "classImage": "https://ibb.co/9pPgDmm"
+    },
+    {
+        "id": 18,
+        "name": "",
+        "species": "Timberjack",
+        "class": "Sharp",
+        "attack": "Low",
+        "speed": "Medium",
+        "armor": "Low",
+        "firepower": "Low",
+        "shotLimit": "Low",
+        "venom": "N/A",
+        "jawStrength": "Very Low",
+        "stealth": "Low",
+        "description": "Modest serenity balanced with fierce protection of their riders",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/timberjack/dragon-hero.png",
+        "classImage": "https://ibb.co/PFjPKk6"
+    },
+    {
+        "id": 19,
+        "name": "",
+        "species": "Whispering Death",
+        "class": "Boulder",
+        "attack": "Low",
+        "speed": "Low",
+        "armor": "Low",
+        "firepower": "Very Low",
+        "shotLimit": "Very Low",
+        "venom": "Very Low",
+        "jawStrength": "Very Low",
+        "stealth": "Low",
+        "description": "Blindly aggressive and capable of holding a grudge like no other dragon",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/whispering-death/dragon-hero.png",
+        "classImage": "https://ibb.co/VphFy0p"
+    },
+    {
+        "id": 20,
+        "name": "Baby Gronckle",
+        "species": "Gronckle",
+        "class": "Boulder",
+        "attack": "Very Low",
+        "speed": "Very Low",
+        "armor": "Low",
+        "firepower": "Low",
+        "shotLimit": "Very Low",
+        "venom": "N/A",
+        "jawStrength": "Very Low",
+        "stealth": "Very Low",
+        "description": "Bouncing boulders of joy that need lots of sleep, food, and attention",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/baby-gronckle/dragon-hero.png",
+        "classImage": "https://ibb.co/VphFy0p"
+    },
+    {
+        "id": 21,
+        "name": "Baby Nadder",
+        "species": "Deadly Nadder",
+        "class": "Tracker",
+        "attack": "Very Low",
+        "speed": "Low",
+        "armor": "Very Low",
+        "firepower": "Low",
+        "shotLimit": "Low",
+        "venom": "Low",
+        "jawStrength": "Very Low",
+        "stealth": "Very Low",
+        "description": "Quick, Curious, and prone to temper-tantrums - Like the toddlers of the dragon world",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/baby-nadder/dragon-hero.png",
+        "classImage": "https://ibb.co/JKNmX66"
+    },
+    {
+        "id": 22,
+        "name": "Baby Zippleback",
+        "species": "Hideous Zippleback",
+        "class": "Mystery",
+        "attack": "Low",
+        "speed": "Low",
+        "armor": "Very Low",
+        "firepower": "Low",
+        "shotLimit": "Very Low",
+        "venom": "N/A",
+        "jawStrength": "Very Low",
+        "stealth": "Low",
+        "description": "Double Trouble",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/baby-zippleback/dragon-hero.png",
+        "classImage": "https://ibb.co/cCfDP5P"
+    },
+    {
+        "id": 23,
+        "name": "Drago's Bewilderbeast",
+        "species": "Bewilderbeast",
+        "class": "Tidal",
+        "attack": "Maximum",
+        "speed": "Low",
+        "armor": "Very High",
+        "firepower": "Maximum",
+        "shotLimit": "Low",
+        "venom": "N/A",
+        "jawStrength": "Very High",
+        "stealth": "N/A",
+        "description": "Scarred and bred for battle",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/drago-bewilderbeast/dragon-hero.png",
+        "classImage": "https://ibb.co/9pPgDmm"
+    },
+    {
+        "id": 24,
+        "name": "Valka's Bewilderbeast",
+        "species": "Bewilderbeast",
+        "class": "Tidal",
+        "attack": "Maximum",
+        "speed": "Low",
+        "armor": "Very High",
+        "firepower": "Maximum",
+        "shotLimit": "Low",
+        "venom": "N/A",
+        "jawStrength": "Very High",
+        "stealth": "N/A",
+        "description": "The benevolent and leonine king of all dragons",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/valka-bewilderbeast/dragon-hero.png",
+        "classImage": "https://ibb.co/9pPgDmm"
+    },
+    {
+        "id": 25,
+        "name": "",
+        "species": "Death Song",
+        "class": "Mystery",
+        "attack": "Low",
+        "speed": "High",
+        "armor": "Low",
+        "firepower": "Low",
+        "shotLimit": "Low",
+        "venom": "N/A",
+        "jawStrength": "Low",
+        "stealth": "N/A",
+        "description": "Enticing and siren-like, this species of dragon is decidedly solitary",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/death-song/dragon-hero.png",
+        "classImage": "https://ibb.co/cCfDP5P"
+    },
+    {
+        "id": 26,
+        "name": "",
+        "species": "Dramillion",
+        "class": "Mystery",
+        "attack": "Low",
+        "speed": "Medium",
+        "armor": "Low",
+        "firepower": "Low",
+        "shotLimit": "Maximum",
+        "venom": "N/A",
+        "jawStrength": "Very Low",
+        "stealth": "Very Low",
+        "description": "Imitative",
+        "image": "https://www.dreamworks.com/images/temp/explore/dragons/dramillion/dragon-hero.png",
+        "classImage": "https://ibb.co/cCfDP5P"
+    }
+];
+        let filteredDragons = [...dragons];
+
+        // Helper to convert text stats to percentages
+        function getStatPercentage(value) {
+            const map = {
+                'N/A': 0,
+                'Very Low': 15,
+                'Low': 30,
+                'Medium': 50,
+                'High': 70,
+                'Very High': 85,
+                'Maximum': 100
+            };
+            return map[value] || 0; // Default to 0 if unknown
+        }
+
+        // Helper to create the HTML for a single stat bar
+        function createStatBar(label, value, colorClass) {
+            const percent = getStatPercentage(value);
+            return `
+                <div class="stat-item">
+                    <div class="stat-header">
+                        <span class="stat-label">${label}</span>
+                    </div>
+                    <div class="stat-track">
+                        <div class="stat-fill ${colorClass}" style="width: ${percent}%" title="${value}"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function convertImageUrl(url) {
+            if (url && url.length > 0) return url;
+            return 'https://placehold.co/400x200/2d2d2d/6bc47d?text=No+Image';
+        }
+
+        function renderDragons(dragonsToRender) {
+            const container = document.getElementById('dragons-container');
+            const noResults = document.getElementById('no-results');
+            
+            container.innerHTML = '';
+            
+            if (dragonsToRender.length === 0) {
+                noResults.style.display = 'block';
+                container.style.display = 'none';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            container.style.display = 'grid';
+            
+            dragonsToRender.forEach(dragon => {
+                const card = document.createElement('article');
+                card.className = 'dragon-card';
+                
+                const displayName = dragon.name || dragon.species;
+                const imageUrl = convertImageUrl(dragon.image);
+                
+                card.innerHTML = `
+                    <img src="${imageUrl}" alt="${displayName}" class="dragon-image">
+                    <div class="dragon-content">
+                        <div class="dragon-header">
+                            <h2 class="dragon-name">${displayName}</h2>
+                            ${dragon.name !== dragon.species && dragon.name ? `<p class="dragon-species">${dragon.species}</p>` : ''}
+                        </div>
+                        <span class="dragon-class">${dragon.class} Class</span>
+                        <p class="dragon-description">"${dragon.description}"</p>
+                        
+                        <div class="dragon-stats">
+                            ${createStatBar('Attack', dragon.attack, 'fill-attack')}
+                            ${createStatBar('Speed', dragon.speed, 'fill-speed')}
+                            ${createStatBar('Armor', dragon.armor, 'fill-armor')}
+                            ${createStatBar('Firepower', dragon.firepower, 'fill-firepower')}
+                            ${createStatBar('Shot Limit', dragon.shotLimit, 'fill-shotlimit')}
+                            ${createStatBar('Venom', dragon.venom, 'fill-venom')}
+                            ${createStatBar('Jaw Strength', dragon.jawStrength, 'fill-jawstrength')}
+                            ${createStatBar('Stealth', dragon.stealth, 'fill-stealth')}
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+const classes = [...new Set(dragons.map(d => d.class))].sort();
+        const classFilter = document.getElementById('class-filter');
+        classes.forEach(c => {
+            const option = document.createElement('option');
+            option.value = c;
+            option.textContent = c;
+            classFilter.appendChild(option);
+        });
+
+        function filterDragons() {
+            const classValue = document.getElementById('class-filter').value;
+            const searchValue = document.getElementById('search-filter').value.toLowerCase();
+            
+            filteredDragons = dragons.filter(dragon => {
+                const matchesClass = !classValue || dragon.class === classValue;
+                const matchesSearch = !searchValue || 
+                    dragon.name.toLowerCase().includes(searchValue) ||
+                    dragon.species.toLowerCase().includes(searchValue);
+                
+                return matchesClass && matchesSearch;
+            });
+            
+            renderDragons(filteredDragons);
+        }
+
+        document.getElementById('class-filter').addEventListener('change', filterDragons);
+        document.getElementById('search-filter').addEventListener('input', filterDragons);
+
+        renderDragons(dragons);
+    </script>
+</body>
+</html>
